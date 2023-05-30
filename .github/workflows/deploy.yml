@@ -19,7 +19,7 @@ jobs:
           aws-region: ap-south-1
       - name: safe directory
         run: |
-              git config --global safe.directory '*'
+              git config --global --add safe.directory /github/workspace
       - name: Sync up to CodeCommit
         uses: tsgit18/sync-up-to-codecommit-action@v1
         with:
