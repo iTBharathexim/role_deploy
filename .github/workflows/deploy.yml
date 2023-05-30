@@ -15,7 +15,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
+          role-to-assume: arn:aws:iam::678678708072:user/bharats3hexim
           aws-region: ap-south-1
 
       - name: Sync GitHub Repository to AWS CodeCommit
