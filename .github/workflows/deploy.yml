@@ -1,24 +1,31 @@
-name: aws-codecommit-sync
+name: sync up to codecommit
+
 on:
   push:
     branches:
-      - main
+      - 'main'
+
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::678678708072:user/bharats3hexim
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
 
-      - name: Sync GitHub Repository to AWS CodeCommit
-        uses: inception-health/sync-up-to-codecommit-action@main
+      - name: Sync up to CodeCommit
+        uses: afinkorea/sync-up-to-codecommit-action@v1
         with:
-          codecommit_url: https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/TEST_DEV
+          repository_name: TEST_DEV
+          aws_region: ap-south-1
+          branch: dev
+          run: |
+               ls
