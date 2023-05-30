@@ -1,8 +1,6 @@
 name: sync up to codecommit
 on:
   push:
-    tags-ignore:
-      - '*'
     branches:
       - 'main'
 jobs:
@@ -11,20 +9,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
-      - name: safe directory
-        run: |
-              git config --system --add safe.directory '*'
-      - name: Sync up to CodeCommit
-        uses: tsgit18/sync-up-to-codecommit-action@v1
-        with:
-          repository_name: test_repo
-          aws_region: ap-south-1
       - name: deploy
         run: |
-             ls
+               git config --global credential.helper cache
+               mkdir checkout              
+               git remote remove origin
+               git remote add origin ssh://APKAZ4BDHH5UCUO3FH37@git-codecommit.ap-south-1.amazonaws.com/v1/repos/TEST_DEV
+               cd checkout
+               git clone ssh://APKAZ4BDHH5UCUO3FH37@git-codecommit.ap-south-1.amazonaws.com/v1/repos/TEST_DEV
+               ls
