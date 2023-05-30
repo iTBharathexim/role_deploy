@@ -27,5 +27,5 @@ jobs:
         with:
           repository_name: test_repo
           aws_region: ap-south-1
-          run: |
-              ls
+      - name: deploy
+        run: |
