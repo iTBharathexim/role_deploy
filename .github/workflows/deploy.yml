@@ -21,13 +21,11 @@ jobs:
           aws-region: ap-south-1
       - name: deploy
         run: |
-               git config --global user.email ${{secrets.GIT_EMAIL_DEPLOY}}
-               git config --global user.name ${{secrets.GIT_USER_DEPLOY}}
+               git config --global credential.helper '!aws codecommit credential-helper $@'
+               git config --global credential.UseHttpPath true
                git config --global credential.helper cache
-               mkdir checkout              
                git remote remove origin
-               git remote add origin https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/TEST_DEV
-               cd checkout
-               git clone https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/TEST_DEV
+               git remote add codecommit origin https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/TEST_DEV
+               git clone codecommit https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/TEST_DEV
                ls
          
