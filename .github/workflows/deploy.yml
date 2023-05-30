@@ -26,6 +26,6 @@ jobs:
         with:
           repository_name: TEST_DEV
           aws_region: ap-south-1
-          branch: dev
+          branch: main
           run: |
                ls
